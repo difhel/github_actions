@@ -31,7 +31,7 @@ jobs:
           cat pylint-output.txt
           exit 1
         fi
-        continue-on-error: true
+      continue-on-error: true
 
     - name: Check pylint results
       run: echo "Pylint check passed"
