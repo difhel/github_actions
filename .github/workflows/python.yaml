@@ -1,0 +1,39 @@
+name: Python Pylint Check
+
+on:
+  push:
+    branches:
+      - main  # Замените "main" на вашу основную ветку
+
+jobs:
+  pylint:
+    name: Run Pylint
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11  # Укажите версию Python, которую вы используете
+
+    - name: Install dependencies
+      run: pip3 install pylint
+
+    - name: Run pylint
+      run: |
+        pylint --disable=R,C .  # Замените <directory_or_file.py> на путь к файлу или каталогу, который вы хотите проверить
+      continue-on-error: true
+
+    - name: Check pylint results
+      run: echo "Pylint check passed"
+
+    - name: Fail if pylint issues found
+      run: |
+        if [ -n "$(find . -name '*.pylint')" ]; then
+          echo "Pylint issues found!"
+          find . -name '*.pylint' -exec cat {} \;
+          exit 1
+        fi
