@@ -1,4 +1,4 @@
-name: MyPy Check
+name: Python MyPy Check
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
 
     - name: Run MyPy
       run: |
-        mypy ${PWD} > mypy_output.txt
+        mypy --strict ${PWD} > mypy_output.txt
       continue-on-error: true
 
     - name: Check MyPy results
