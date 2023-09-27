@@ -25,7 +25,7 @@ jobs:
     - name: Run pylint
       run: |
         echo -e '"""Temp file for Github Action"""\n' > __init__.py
-        pylint --disable=R,C ${PWD}/test.py > pylint_output.txt
+        pylint ${PWD}/test.py > pylint_output.txt
         if ! grep -q "Your code has been rated at 10.00/10" pylint_output.txt; then
           echo "Pylint issues found!"
           cat pylint_output.txt
