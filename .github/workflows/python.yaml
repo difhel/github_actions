@@ -24,8 +24,13 @@ jobs:
 
     - name: Run pylint
       run: |
-        echo -e '"""Temp file for Github Action"""\n' > __init__.py && pylint --disable=R,C ${PWD}  # Замените <directory_or_file.py> на путь к файлу или каталогу, который вы хотите проверить
-      continue-on-error: true
+        echo -e '"""Temp file for Github Action"""\n' > __init__.py && pylint --disable=R,C ${PWD} > pylint_output.txt
+        if ! grep -q "Your code has been rated at 10.00/10" pylint-output.txt; then
+          echo "Pylint issues found!"
+          cat pylint-output.txt
+          exit 1
+        fi
+        continue-on-error: true
 
     - name: Check pylint results
       run: echo "Pylint check passed"
