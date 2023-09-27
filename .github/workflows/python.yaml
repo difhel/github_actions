@@ -24,7 +24,7 @@ jobs:
 
     - name: Run pylint
       run: |
-        pylint --disable=R,C .  # Замените <directory_or_file.py> на путь к файлу или каталогу, который вы хотите проверить
+        pylint --disable=R,C ${PWD}  # Замените <directory_or_file.py> на путь к файлу или каталогу, который вы хотите проверить
       continue-on-error: true
 
     - name: Check pylint results
