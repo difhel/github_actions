@@ -28,13 +28,13 @@ jobs:
         pylint --disable=R,C ${PWD} > pylint_output.txt
         if ! grep -q "Your code has been rated at 10.00/10" pylint_output.txt; then
           echo "Pylint issues found!"
-          cat pylint-output.txt
+          cat pylint_output.txt
           exit 1
         fi
       continue-on-error: true
 
-    - name: Check pylint results
-      run: echo "Pylint check passed"
+    - name: Print pylint results
+      run: cat pylint_output.txt
 
     - name: Fail if pylint issues found
       run: |
