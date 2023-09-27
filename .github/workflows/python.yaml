@@ -26,20 +26,8 @@ jobs:
       run: |
         echo -e '"""Temp file for Github Action"""\n' > __init__.py
         pylint ${PWD}/test.py > pylint_output.txt
+        cat pylint_output.txt
         if ! grep -q "Your code has been rated at 10.00/10" pylint_output.txt; then
           echo "Pylint issues found!"
-          cat pylint_output.txt
-          exit 1
-        fi
-      continue-on-error: true
-
-    - name: Print pylint results
-      run: cat pylint_output.txt
-
-    - name: Fail if pylint issues found
-      run: |
-        if [ -n "$(find . -name '*.pylint')" ]; then
-          echo "Pylint issues found!"
-          find . -name '*.pylint' -exec cat {} \;
           exit 1
         fi
